@@ -1,0 +1,121 @@
+@php
+    $currentRouteName = Route::currentRouteName();
+@endphp
+
+<aside id="layout-menu" class="layout-menu menu-vertical menu">
+    <div class="app-brand demo">
+        <a href="{{ route('admin.dashboard') }}" class="app-brand-link">
+            <span class="app-brand-logo demo">
+
+            </span>
+            <span class="app-brand-text demo menu-text fw-bold ms-3">{{ config('variables.templateName') }}</span>
+        </a>
+
+        <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto">
+            <i class="icon-base ti menu-toggle-icon d-none d-xl-block"></i>
+            <i class="icon-base ti tabler-x d-block d-xl-none"></i>
+        </a>
+    </div>
+
+    <div class="menu-inner-shadow"></div>
+
+    <ul class="menu-inner py-1">
+        <!-- Dashboard -->
+        <li class="menu-item {{ Str::contains($currentRouteName, 'admin.dashboard') ? 'active' : '' }}">
+            <a href="{{ route('admin.dashboard') }}" class="menu-link">
+                <i class="menu-icon icon-base ti tabler-smart-home"></i>
+                <div data-i18n="Dashboard">Dashboard</div>
+            </a>
+        </li>
+
+        <!-- Manage Public Page -->
+        <li class="menu-item">
+            <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon icon-base ti tabler-browser-check"></i>
+                <div data-i18n="Manage Public Page">Manage Public Page</div>
+            </a>
+            <ul class="menu-sub">
+                <li class="menu-item">
+                    <a href="" class="menu-link">
+                        <div data-i18n="Home Page">Home Page</div>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="" class="menu-link">
+                        <div data-i18n="Pricing">Pricing</div>
+                    </a>
+                </li>
+            </ul>
+        </li>
+
+        <!-- Manage Stock (Email) -->
+        <li class="menu-item">
+            <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon icon-base ti tabler-mail"></i>
+                <div data-i18n="Manage Stock (Email)">Manage Stock (Email)</div>
+            </a>
+            <ul class="menu-sub">
+                <li class="menu-item">
+                    <a href="" class="menu-link">
+                        <div data-i18n="Email">Email</div>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="" class="menu-link">
+                        <div data-i18n="Outlook Email">Outlook Email</div>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="" class="menu-link">
+                        <div data-i18n="Hotmail">Hotmail</div>
+                    </a>
+                </li>
+            </ul>
+        </li>
+
+        {{--<!-- Manage User Register -->
+        <li class="menu-item {{ Str::contains($currentRouteName, 'users') ? 'active' : '' }}">
+            <a href="{{ route('admin.dashboard') }}" class="menu-link">
+                <i class="menu-icon icon-base ti tabler-user-plus"></i>
+                <div data-i18n="Manage User Register">Manage User Register</div>
+            </a>
+        </li>
+
+        <!-- Manage User Admin -->
+        <li class="menu-item {{ Str::contains($currentRouteName, 'users') ? 'active' : '' }}">
+            <a href="{{ route('admin.dashboard') }}" class="menu-link">
+                <i class="menu-icon icon-base ti tabler-user-plus"></i>
+                <div data-i18n="Manage User Admin">Manage User Admin</div>
+            </a>
+        </li>--}}
+
+        <!-- Manage Users -->
+        <li class="menu-item {{ Str::startsWith($currentRouteName, 'users') ? 'active open' : '' }}">
+            <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon icon-base ti tabler-user-cog"></i>
+                <div data-i18n="Manage Users">Manage Users</div>
+            </a>
+            <ul class="menu-sub">
+                <!-- User Register -->
+                <li class="menu-item {{ Str::contains($currentRouteName, 'users.register') ? 'active' : '' }}">
+                    <a href="{{ route('users.register') }}" class="menu-link">
+                        <div data-i18n="User Register">User Register</div>
+                    </a>
+                </li>
+                <!-- User Admin -->
+                <li class="menu-item {{ Str::contains($currentRouteName, 'users.admin') ? 'active' : '' }}">
+                    <a href="{{ route('users.admin') }}" class="menu-link">
+                        <div data-i18n="User Admin">User Admin</div>
+                    </a>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</aside>
+
+<div class="menu-mobile-toggler d-xl-none rounded-1">
+    <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large text-bg-secondary p-2 rounded-1">
+        <i class="ti tabler-menu icon-base"></i>
+        <i class="ti tabler-chevron-right icon-base"></i>
+    </a>
+</div>

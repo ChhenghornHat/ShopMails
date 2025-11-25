@@ -1,0 +1,20 @@
+{
+  "navigation": {
+    "Dashboard": [
+      {
+        "name": "Dashboard",
+        "icon": "tabler-smart-home",
+        "url": "/admin/dashboard"
+      }
+    ]
+  },
+  "suggestions": {
+    "Popular Searches": [
+      {
+        "name": "Dashboard",
+        "icon": "tabler-smart-home",
+        "url": "/admin/dashboard"
+      }
+    ]
+  }
+}
