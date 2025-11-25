@@ -44,10 +44,14 @@
                             <!-- Password Reset Token -->
                             <input type="hidden" name="token" value="{{ $request->route('token') }}">
 
+                            @if($errors->any())
+                                <div class="alert alert-danger">
+                                    {{ $errors->first() }}
+                                </div>
+                            @endif
                             <div class="mb-6 form-control-validation">
                                 <label for="email" class="form-label">Email</label>
-                                <input type="text" class="form-control" id="email" name="email" value="{{ old('email', $request->email) }}" placeholder="Enter your email"/>
-                                <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback">@error('email') {{ $message }} @enderror</div>
+                                <input type="text" class="form-control" id="email" name="email" value="{{ old('email', $request->email) }}"/>
                             </div>
                             <div class="mb-6 form-password-toggle form-control-validation">
                                 <label class="form-label" for="password">New Password</label>
@@ -57,10 +61,10 @@
                                 </div>
                             </div>
                             <div class="mb-6 form-password-toggle form-control-validation">
-                                <label class="form-label" for="password_confirmation">Confirm Password</label>
+                                <label class="form-label" for="confirm-password">Confirm Password</label>
                                 <div class="input-group input-group-merge">
-                                    <input type="password" id="password_confirmation" class="form-control" name="password_confirmation" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" aria-describedby="password" />
-                                    <span class="input-group--pointer"><i class="icon-base ti tabler-eye-off"></i></span>
+                                    <input type="password" id="confirm-password" class="form-control" name="password_confirmation" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" aria-describedby="password" />
+                                    <span class="input-group-text cursor-pointer"><i class="icon-base ti tabler-eye-off"></i></span>
                                 </div>
                             </div>
                             <button type="submit" class="btn btn-primary d-grid w-100 mb-6">Set new password</button>
@@ -68,7 +72,7 @@
                                 <a href="{{ route('login') }}" class="d-flex justify-content-center">
                                     <i class="icon-base ti tabler-chevron-left scaleX-n1-rtl me-1_5"></i>
                                     Back to login
-                                </a>text cursor
+                                </a>
                             </div>
                         </form>
                     </div>

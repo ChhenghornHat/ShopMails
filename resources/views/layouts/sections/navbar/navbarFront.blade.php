@@ -31,18 +31,20 @@
                     <li class="nav-item">
                         <a class="nav-link fw-medium" href="">Price of Service</a>
                     </li>
-                    {{--<li class="nav-item">
-                        <a class="nav-link fw-medium" href="">Dashboard</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link fw-medium" href="">Deposit</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link fw-medium" href="">Purchase Email</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link fw-medium" href="">API</a>
-                    </li>--}}
+                    @auth
+                        <li class="nav-item">
+                            <a class="nav-link fw-medium" href="">Dashboard</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link fw-medium" href="">Deposit</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link fw-medium" href="">Purchase Email</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link fw-medium" href="">API</a>
+                        </li>
+                    @endauth
                 </ul>
             </div>
             <div class="landing-menu-overlay d-lg-none"></div>

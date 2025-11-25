@@ -42,10 +42,15 @@
 
                         <form id="formAuthentication" class="mb-4" action="{{ route('login') }}" method="post">
                             @csrf
+                            @if($errors->any())
+                                <div class="alert alert-danger">
+                                    {{ $errors->first() }}
+                                </div>
+                            @endif
                             <div class="mb-6 form-control-validation">
                                 <label for="email" class="form-label">Email</label>
                                 <input type="text" class="form-control" id="email" name="email" value="{{ old('email') }}" placeholder="Enter your email" autofocus />
-                                <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback">@error('email') {{ $message }} @enderror</div>
+{{--                                <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback">@error('email') {{ $message }} @enderror</div>--}}
                             </div>
                             <div class="mb-6 form-password-toggle form-control-validation">
                                 <label class="form-label" for="password">Password</label>

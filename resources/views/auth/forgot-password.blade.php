@@ -41,6 +41,11 @@
                         <p class="mb-6">Enter your email and we'll send you instructions to reset your password</p>
                         <form id="formAuthentication" class="mb-6" action="{{ route('password.email') }}" method="post">
                             @csrf
+                            @if(session('status'))
+                                <div class="alert alert-info">
+                                    {{ session('status') }}
+                                </div>
+                            @endif
                             <div class="mb-6 form-control-validation">
                                 <label for="email" class="form-label">Email</label>
                                 <input type="text" class="form-control" id="email" name="email" value="{{ old('email') }}" placeholder="Enter your email" autofocus />

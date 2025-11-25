@@ -33,6 +33,17 @@ class UserController extends Controller
             });
         }
 
+        // Sorting from DataTable
+        if ($request->order) {
+            $columnIndex = $request->order[0]['column'];   // which column index
+            $columnName  = $request->columns[$columnIndex]['name']; // column name
+            $direction   = $request->order[0]['dir'];      // asc / desc
+
+            if ($columnName !== '') {
+                $query->orderBy($columnName, $direction);
+            }
+        }
+
         // Pagination
         $perPage = $request->length;
         $page = ($request->start / $perPage) + 1;
