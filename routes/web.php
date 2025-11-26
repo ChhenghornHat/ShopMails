@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Backend\AdminAuthenticatedController;
 use App\Http\Controllers\Backend\AdminDashboardController;
+use App\Http\Controllers\Backend\MailStockController;
 use App\Http\Controllers\Backend\UserController;
 use App\Http\Controllers\Backend\UserRegisterController;
 use App\Http\Controllers\Frontend\DashboardController;
@@ -29,9 +30,12 @@ Route::controller(HomeController::class)->group(function () {
 });
 
 // Dashboard
-Route::middleware(['auth', 'verified'])->group(function () {
+Route::middleware('user')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 });
+/*Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+});*/
 
 /******* Backend Route *******/
 // Admin Auth
@@ -45,6 +49,16 @@ Route::controller(AdminAuthenticatedController::class)->group(function () {
 Route::middleware('admin')->group(function () {
     // Admin Dashboard
     Route::get('/admin/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
+
+    // Mail Stock
+    Route::controller(MailStockController::class)->group(function () {
+        Route::get('/mail/stock', 'index')->name('mail.stock');
+        Route::get('/mail/stock/data', 'getMailStocks')->name('mail.stock.data');
+        Route::get('/mail/stock/create', 'create')->name('mail.stock.create');
+        Route::post('/mail/stock/store', 'store')->name('mail.stock.store');
+        Route::get('/mail/stock/edit/{id}', 'edit')->name('mail.stock.edit');
+        Route::post('/mail/stock/update/{id}', 'update')->name('mail.stock.update');
+    });
 
     // User Register
     Route::controller(UserRegisterController::class)->group(function () {

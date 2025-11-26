@@ -1,6 +1,6 @@
 @extends('layouts.contentNavbarLayout')
 
-@section('title', 'User Register')
+@section('title', 'Stock')
 
 @section('vendor-styles')
     <link rel="stylesheet" href="{{ asset('assets/vendor/libs/datatables-bs5/datatables.bootstrap5.css') }}"/>
@@ -33,21 +33,24 @@
             return `${day}-${month}-${year} ${hour}:${minute}`;
         }
 
-        $('.datatables-user-register').DataTable({
+        $('.datatables-mail-stock').DataTable({
             serverSide: true,
-            ajax: '/users/register/data',
+            ajax: '/mail/stock/data',
             searching: true,
             columns: [
                 { data: 'id', name: 'id' },
-                { data: 'name', name: 'name' },
-                { data: 'email', name: 'email' },
+                { data: 'mail', name: 'mail' },
+                { data: 'password', name: 'password' },
                 {
-                    data: 'email_verified_at',
-                    name: 'email_verified_at',
-                    render: function(data) {
-                        return formatDateTime(data);
+                    data: 'used',
+                    name: 'used',
+                    render: function (data) {
+                        const isUsed = data === 'Yes';
+                        return `<span class="badge ${isUsed ? 'bg-label-success' : 'bg-label-danger'}">${data}</span>`;
                     }
                 },
+                { data: 'flatform', name: 'flatform' },
+                { data: 'smtp', name: 'smtp' },
                 {
                     data: 'created_at',
                     name: 'created_at',
@@ -56,25 +59,13 @@
                     }
                 },
                 {
-                    data: 'status',
-                    name: 'status',
-                    render: function (data) {
-                        const isActive = data === '1';
-                        return `<span class="badge ${isActive ? 'bg-label-success' : 'bg-label-danger'}">${isActive ? 'Active' : 'Inactive'}</span>`;
-                    }
-                },
-                {
                     data: 'id', name: 'id',
-                    render: function (data, type, row) {
+                    render: function (data) {
                         return `
                             <div class="d-inline-block text-nowrap">
-                                <button class="btn btn-text-secondary rounded-pill waves-effect btn-icon dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
-                                    <i class="icon-base ti tabler-dots-vertical icon-22px"></i>
-                                </button>
-                                <div class="dropdown-menu dropdown-menu-end m-0">
-                                  <a href="javascript:void(0);" class="dropdown-item">View</a>
-                                  <a href="javascript:void(0);" class="dropdown-item">Suspend</a>
-                                </div>
+                                <a href="/mail/stock/edit/${data}" class="btn btn-primary waves-effect btn-icon">
+                                    <i class="icon-base ti tabler-pencil icon-22px"></i>
+                                </a>
                             </div>
                         `;
                     }
@@ -96,7 +87,7 @@
                         {
                             search: {
                                 className: "me-5 ms-n4 pe-5 mb-n6 mb-md-0",
-                                placeholder: "Search User Register",
+                                placeholder: "Search Stock",
                                 text: "_INPUT_",
                             },
                         },
@@ -110,7 +101,7 @@
                             buttons: [
                                 {
                                     extend: "collection",
-                                    className: "btn btn-label-secondary dropdown-toggle",
+                                    className: "btn btn-label-secondary dropdown-toggle me-4",
                                     text: '<span class="d-flex align-items-center gap-1"><i class="icon-base ti tabler-upload icon-xs"></i> <span class="d-sm-inline-block">Export</span></span>',
                                     buttons: [
                                         {
@@ -129,7 +120,14 @@
                                             className: "dropdown-item"
                                         },
                                     ],
-                                }
+                                },
+                                {
+                                    text: '<i class="icon-base ti tabler-plus me-0 me-sm-1 icon-16px"></i><span class="d-none d-sm-inline-block">Add New</span>',
+                                    className: "add-new btn btn-primary",
+                                    action: function () {
+                                        window.location.href = "{{ route('mail.stock.create') }}";
+                                    },
+                                },
                             ],
                         },
                     ],
@@ -189,15 +187,16 @@
 @section('content')
     <div class="card">
         <div class="card-datatable table-responsive text-nowrap">
-            <table class="datatables-user-register table">
+            <table class="datatables-mail-stock table">
                 <thead class="border-top">
                 <tr>
                     <th>#</th>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Email Verified</th>
-                    <th>Created At</th>
-                    <th>Status</th>
+                    <th>Mail</th>
+                    <th>Password</th>
+                    <th>Used</th>
+                    <th>Flatform</th>
+                    <th>SMTP</th>
+                    <th>Create At</th>
                     <th>Action</th>
                 </tr>
                 </thead>

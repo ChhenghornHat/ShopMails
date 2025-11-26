@@ -49,45 +49,46 @@
         </li>
 
         <!-- Manage Stock (Email) -->
-        <li class="menu-item">
+        <li class="menu-item {{ Str::startsWith($currentRouteName, 'mail') ? 'active open' : '' }}">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon icon-base ti tabler-mail"></i>
-                <div data-i18n="Manage Stock (Email)">Manage Stock (Email)</div>
+                <div data-i18n="Manage Stock (Mail)">Manage Stock (Mail)</div>
             </a>
             <ul class="menu-sub">
-                <li class="menu-item">
-                    <a href="" class="menu-link">
-                        <div data-i18n="Email">Email</div>
+                <!-- Stock -->
+                <li class="menu-item {{ Str::contains($currentRouteName, 'stock') ? 'active' : '' }}">
+                    <a href="{{ route('mail.stock') }}" class="menu-link">
+                        <div data-i18n="Stock">Stock</div>
                     </a>
                 </li>
+                <!-- SMTP Server -->
                 <li class="menu-item">
-                    <a href="" class="menu-link">
-                        <div data-i18n="Outlook Email">Outlook Email</div>
+                    <a href="javascript:void(0);" class="menu-link menu-toggle">
+                        <div data-i18n="SMTP Server">SMTP Server</div>
                     </a>
-                </li>
-                <li class="menu-item">
-                    <a href="" class="menu-link">
-                        <div data-i18n="Hotmail">Hotmail</div>
-                    </a>
+                    <ul class="menu-sub">
+                        <!-- Gmail -->
+                        <li class="menu-item">
+                            <a href="" class="menu-link">
+                                <div data-i18n="Gmail">Gmail</div>
+                            </a>
+                        </li>
+                        <!-- Outlook -->
+                        <li class="menu-item">
+                            <a href="" class="menu-link">
+                                <div data-i18n="Outlook">Outlook</div>
+                            </a>
+                        </li>
+                        <!-- Custom -->
+                        <li class="menu-item">
+                            <a href="" class="menu-link">
+                                <div data-i18n="Custom">Custom</div>
+                            </a>
+                        </li>
+                    </ul>
                 </li>
             </ul>
         </li>
-
-        {{--<!-- Manage User Register -->
-        <li class="menu-item {{ Str::contains($currentRouteName, 'users') ? 'active' : '' }}">
-            <a href="{{ route('admin.dashboard') }}" class="menu-link">
-                <i class="menu-icon icon-base ti tabler-user-plus"></i>
-                <div data-i18n="Manage User Register">Manage User Register</div>
-            </a>
-        </li>
-
-        <!-- Manage User Admin -->
-        <li class="menu-item {{ Str::contains($currentRouteName, 'users') ? 'active' : '' }}">
-            <a href="{{ route('admin.dashboard') }}" class="menu-link">
-                <i class="menu-icon icon-base ti tabler-user-plus"></i>
-                <div data-i18n="Manage User Admin">Manage User Admin</div>
-            </a>
-        </li>--}}
 
         <!-- Manage Users -->
         <li class="menu-item {{ Str::startsWith($currentRouteName, 'users') ? 'active open' : '' }}">
