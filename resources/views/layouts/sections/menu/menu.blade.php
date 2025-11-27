@@ -1,5 +1,5 @@
 @php
-    $currentRouteName = Route::currentRouteName();
+    $currentRouteName = Illuminate\Support\Facades\Route::currentRouteName();
 @endphp
 
 <aside id="layout-menu" class="layout-menu menu-vertical menu">
@@ -21,7 +21,7 @@
 
     <ul class="menu-inner py-1">
         <!-- Dashboard -->
-        <li class="menu-item {{ Str::contains($currentRouteName, 'admin.dashboard') ? 'active' : '' }}">
+        <li class="menu-item {{ Str::contains($currentRouteName, 'admin.deposit') ? 'active' : '' }}">
             <a href="{{ route('admin.dashboard') }}" class="menu-link">
                 <i class="menu-icon icon-base ti tabler-smart-home"></i>
                 <div data-i18n="Dashboard">Dashboard</div>
@@ -48,7 +48,7 @@
             </ul>
         </li>
 
-        <!-- Manage Stock (Email) -->
+        <!-- Manage Stock (Mail) -->
         <li class="menu-item {{ Str::startsWith($currentRouteName, 'mail') ? 'active open' : '' }}">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon icon-base ti tabler-mail"></i>
@@ -80,14 +80,30 @@
                             </a>
                         </li>
                         <!-- Custom -->
-                        <li class="menu-item">
-                            <a href="" class="menu-link">
+                        <li class="menu-item {{ Str::contains($currentRouteName, 'custom') ? 'active' : '' }}">
+                            <a href="{{ route('mail.smtp.custom') }}" class="menu-link">
                                 <div data-i18n="Custom">Custom</div>
                             </a>
                         </li>
                     </ul>
                 </li>
             </ul>
+        </li>
+
+        <!-- Manage Orders -->
+        <li class="menu-item {{ Str::contains($currentRouteName, 'admin.orders') ? 'active' : '' }}">
+            <a href="{{ route('admin.dashboard') }}" class="menu-link">
+                <i class="menu-icon icon-base ti tabler-shopping-cart"></i>
+                <div data-i18n="Manage Orders">Manage Orders</div>
+            </a>
+        </li>
+
+        <!-- Manage Deposit -->
+        <li class="menu-item {{ Str::contains($currentRouteName, 'admin.dashboard') ? 'active' : '' }}">
+            <a href="{{ route('admin.dashboard') }}" class="menu-link">
+                <i class="menu-icon icon-base ti tabler-currency-dollar"></i>
+                <div data-i18n="Manage Deposit">Manage Deposit</div>
+            </a>
         </li>
 
         <!-- Manage Users -->

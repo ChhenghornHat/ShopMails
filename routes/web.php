@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Backend\AdminAuthenticatedController;
 use App\Http\Controllers\Backend\AdminDashboardController;
+use App\Http\Controllers\Backend\CustomSmtpController;
 use App\Http\Controllers\Backend\GmailSmtpController;
 use App\Http\Controllers\Backend\MailStockController;
 use App\Http\Controllers\Backend\OutlookSmtpController;
@@ -74,6 +75,13 @@ Route::middleware('admin')->group(function () {
         Route::get('/mail/smtp/outlook', 'index')->name('mail.smtp.outlook');
         Route::post('/outlook/store', 'store')->name('outlook.store');
         Route::post('/outlook/update/{id}', 'update')->name('outlook.update');
+    });
+
+    // Custom SMTP
+    Route::controller(CustomSmtpController::class)->group(function () {
+        Route::get('/mail/smtp/custom', 'index')->name('mail.smtp.custom');
+        Route::post('/custom/store', 'store')->name('custom.store');
+        Route::post('/custom/update/{id}', 'update')->name('custom.update');
     });
 
     // User Register

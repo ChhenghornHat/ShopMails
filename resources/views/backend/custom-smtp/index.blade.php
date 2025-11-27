@@ -1,6 +1,6 @@
 @extends('layouts.contentNavbarLayout')
 
-@section('title', 'Gmail SMTP')
+@section('title', 'Custom SMTP')
 
 @section('vendor-styles')
     <link rel="stylesheet" href="{{ asset('assets/vendor/libs/@form-validation/form-validation.css') }}"/>
@@ -13,15 +13,15 @@
 @endsection
 
 @section('page-scripts')
-    <script src="{{ asset('assets/js/pages-gmail-smtp.js') }}"></script>
+    <script src="{{ asset('assets/js/pages-custom-smtp.js') }}"></script>
 @endsection
 
 @section('content')
-    <form id="formGmail" action="{{ $gmailSmtp ? route('gmail.update', $gmailSmtp->id) : route('gmail.store') }}" method="post" autocomplete="off">
+    <form id="formCustom" action="{{ $customSmtp ? route('custom.update', $customSmtp->id) : route('custom.store') }}" method="post" autocomplete="off">
         @csrf
         <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center mb-6 row-gap-4">
             <div class="d-flex flex-column justify-content-center">
-                <h4 class="mb-1">Gmail SMTP</h4>
+                <h4 class="mb-1">Custom SMTP</h4>
             </div>
             <div class="d-flex align-content-center flex-wrap gap-4">
                 <button type="reset" class="btn btn-label-secondary">Reset</button>
@@ -34,13 +34,13 @@
                 <div class="row mb-6">
                     <label class="col-sm-2 col-form-label" for="host">Host <span class="text-danger">*</span></label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="host" name="host" value="{{ $gmailSmtp->host ?? '' }}" placeholder="Enter Host" />
+                        <input type="text" class="form-control" id="host" name="host" value="{{ $customSmtp->host ?? '' }}" placeholder="Enter Host" />
                     </div>
                 </div>
                 <div class="row mb-6">
                     <label class="col-sm-2 col-form-label" for="port">Port <span class="text-danger">*</span></label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="port" name="port" value="{{ $gmailSmtp->port ?? '' }}" placeholder="Enter Port" />
+                        <input type="text" class="form-control" id="port" name="port" value="{{ $customSmtp->port ?? '' }}" placeholder="Enter Port" />
                     </div>
                 </div>
                 <div class="row mb-6">
@@ -48,15 +48,15 @@
                     <div class="col-sm-10">
                         <select class="form-select" id="encryption" name="encryption">
                             <option value="" disabled>Select Encryption</option>
-                            <option value="ssl" {{ $gmailSmtp?->encryption === 'ssl' ? 'selected' : ''}}>SSL</option>
-                            <option value="tls" {{ $gmailSmtp?->encryption === 'tls' ? 'selected' : ''}}>TLS</option>
+                            <option value="ssl" {{ $customSmtp?->encryption === 'ssl' ? 'selected' : ''}}>SSL</option>
+                            <option value="tls" {{ $customSmtp?->encryption === 'tls' ? 'selected' : ''}}>TLS</option>
                         </select>
                     </div>
                 </div>
                 <div class="row">
                     <label class="col-sm-2 col-form-label" for="price">Price <span class="text-danger">*</span></label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="price" name="price" value="{{ $gmailSmtp->price ?? '' }}" placeholder="Enter Price" />
+                        <input type="text" class="form-control" id="price" name="price" value="{{ $customSmtp->price ?? '' }}" placeholder="Enter Price" />
                     </div>
                 </div>
             </div>
