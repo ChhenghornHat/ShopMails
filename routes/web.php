@@ -2,7 +2,9 @@
 
 use App\Http\Controllers\Backend\AdminAuthenticatedController;
 use App\Http\Controllers\Backend\AdminDashboardController;
+use App\Http\Controllers\Backend\GmailSmtpController;
 use App\Http\Controllers\Backend\MailStockController;
+use App\Http\Controllers\Backend\OutlookSmtpController;
 use App\Http\Controllers\Backend\UserController;
 use App\Http\Controllers\Backend\UserRegisterController;
 use App\Http\Controllers\Frontend\DashboardController;
@@ -58,6 +60,20 @@ Route::middleware('admin')->group(function () {
         Route::post('/mail/stock/store', 'store')->name('mail.stock.store');
         Route::get('/mail/stock/edit/{id}', 'edit')->name('mail.stock.edit');
         Route::post('/mail/stock/update/{id}', 'update')->name('mail.stock.update');
+    });
+
+    // Gmail SMTP
+    Route::controller(GmailSmtpController::class)->group(function () {
+        Route::get('/mail/smtp/gmail', 'index')->name('mail.smtp.gmail');
+        Route::post('/gmail/store', 'store')->name('gmail.store');
+        Route::post('/gmail/update/{id}', 'update')->name('gmail.update');
+    });
+
+    // Outlook SMTP
+    Route::controller(OutlookSmtpController::class)->group(function () {
+        Route::get('/mail/smtp/outlook', 'index')->name('mail.smtp.outlook');
+        Route::post('/outlook/store', 'store')->name('outlook.store');
+        Route::post('/outlook/update/{id}', 'update')->name('outlook.update');
     });
 
     // User Register

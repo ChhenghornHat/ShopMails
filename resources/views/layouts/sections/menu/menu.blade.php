@@ -62,20 +62,20 @@
                     </a>
                 </li>
                 <!-- SMTP Server -->
-                <li class="menu-item">
+                <li class="menu-item {{ Str::startsWith($currentRouteName, 'mail.smtp') ? 'active open' : '' }}">
                     <a href="javascript:void(0);" class="menu-link menu-toggle">
                         <div data-i18n="SMTP Server">SMTP Server</div>
                     </a>
                     <ul class="menu-sub">
                         <!-- Gmail -->
-                        <li class="menu-item">
-                            <a href="" class="menu-link">
+                        <li class="menu-item {{ Str::contains($currentRouteName, 'gmail') ? 'active' : '' }}">
+                            <a href="{{ route('mail.smtp.gmail') }}" class="menu-link">
                                 <div data-i18n="Gmail">Gmail</div>
                             </a>
                         </li>
                         <!-- Outlook -->
-                        <li class="menu-item">
-                            <a href="" class="menu-link">
+                        <li class="menu-item {{ Str::contains($currentRouteName, 'outlook') ? 'active' : '' }}">
+                            <a href="{{ route('mail.smtp.outlook') }}" class="menu-link">
                                 <div data-i18n="Outlook">Outlook</div>
                             </a>
                         </li>
