@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Backend\AdminAuthenticatedController;
 use App\Http\Controllers\Backend\AdminDashboardController;
+use App\Http\Controllers\Backend\AdminDepositController;
 use App\Http\Controllers\Backend\CustomSmtpController;
 use App\Http\Controllers\Backend\GmailSmtpController;
 use App\Http\Controllers\Backend\MailStockController;
@@ -82,6 +83,14 @@ Route::middleware('admin')->group(function () {
         Route::get('/mail/smtp/custom', 'index')->name('mail.smtp.custom');
         Route::post('/custom/store', 'store')->name('custom.store');
         Route::post('/custom/update/{id}', 'update')->name('custom.update');
+    });
+
+    // Deposit
+    Route::controller(AdminDepositController::class)->group(function () {
+        Route::get('/deposits', 'index')->name('deposits');
+        Route::get('/deposits/data', 'getDeposits')->name('deposits.data');
+        Route::get('/deposits/create', 'create')->name('deposits.create');
+        Route::post('/deposits/store', 'store')->name('deposits.store');
     });
 
     // User Register
