@@ -11,6 +11,7 @@ use App\Http\Controllers\Backend\UserController;
 use App\Http\Controllers\Backend\UserRegisterController;
 use App\Http\Controllers\Frontend\DashboardController;
 use App\Http\Controllers\Frontend\HomeController;
+use App\Http\Controllers\Frontend\PricingController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -32,6 +33,9 @@ Route::controller(HomeController::class)->group(function () {
     Route::get('/', 'index');
     Route::get('/home', 'index')->name('home');
 });
+
+// Pricing
+Route::get('/pricing', [PricingController::class, 'index'])->name('pricing');
 
 // Dashboard
 Route::middleware(['auth', 'verified'])->group(function () {

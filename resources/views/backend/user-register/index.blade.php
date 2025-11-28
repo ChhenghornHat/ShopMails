@@ -189,7 +189,7 @@
 @section('content')
     <div class="card">
         <div class="card-datatable table-responsive text-nowrap">
-            <table class="datatables-user-register table">
+            <table class="datatables-user-register table table-bordered">
                 <thead class="border-top">
                 <tr>
                     <th>#</th>

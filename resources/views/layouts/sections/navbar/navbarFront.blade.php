@@ -1,3 +1,7 @@
+@php
+    $currentRouteName = Illuminate\Support\Facades\Route::currentRouteName();
+@endphp
+
 <nav class="layout-navbar shadow-none py-0">
     <div class="container">
         <div class="navbar navbar-expand-lg landing-navbar px-3 px-md-8">
@@ -25,15 +29,15 @@
                     <i class="icon-base ti tabler-x icon-lg"></i>
                 </button>
                 <ul class="navbar-nav me-auto">
-                    <li class="nav-item">
+                    <li class="nav-item {{ Str::contains($currentRouteName, 'home') ? 'active' : '' }}">
                         <a class="nav-link fw-medium" aria-current="page" href="{{ route('home') }}">Home</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link fw-medium" href="">Price of Service</a>
+                    <li class="nav-item {{ Str::contains($currentRouteName, 'pricing') ? 'active' : '' }}">
+                        <a class="nav-link fw-medium" href="{{ route('pricing') }}">Price of Service</a>
                     </li>
                     @auth
-                        <li class="nav-item">
-                            <a class="nav-link fw-medium" href="">Dashboard</a>
+                        <li class="nav-item {{ Str::contains($currentRouteName, 'dashboard') ? 'active' : '' }}">
+                            <a class="nav-link fw-medium" href="{{ route('dashboard') }}">Dashboard</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link fw-medium" href="">Deposit</a>

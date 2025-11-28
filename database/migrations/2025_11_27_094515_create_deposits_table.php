@@ -14,10 +14,11 @@ return new class extends Migration
         Schema::create('deposits', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
-            $table->decimal('amount', 18);
+            $table->decimal('amount', 18, 2);
             $table->string('currency', 10)->default('USD');
             $table->enum('type', ['manual', 'self'])->default('self');
             $table->string('method', 50)->nullable();
+            $table->text('notes')->nullable();
             $table->timestamps();
         });
     }

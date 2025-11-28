@@ -65,9 +65,12 @@
                     render: function (data) {
                         return `
                             <div class="d-inline-block text-nowrap">
-                                <button class="btn btn-primary waves-effect btn-icon">
-                                    <i class="icon-base ti tabler-pencil icon-22px"></i>
-                                </button>
+                                <a href="{{ route('deposits.create') }}" class="btn btn-primary waves-effect btn-icon me-1" data-bs-toggle="tooltip" data-bs-placement="top" title="Deposit">
+                                    <i class="icon-base ti tabler-currency-dollar icon-22px"></i>
+                                </a>
+                                <a href="{{ route('deposits.create') }}" class="btn btn-info waves-effect btn-icon" data-bs-toggle="tooltip" data-bs-placement="top" title="Transaction History">
+                                    <i class="icon-base ti tabler-history icon-22px"></i>
+                                </a>
                             </div>
                         `;
                     }
@@ -78,6 +81,9 @@
                 orderable: false,
                 targets: -1
             }],
+            drawCallback: function () {
+                $('[data-bs-toggle="tooltip"]').tooltip();
+            },
             scrollX: true,
             fixedColumns: {
                 right: 1,
@@ -103,7 +109,7 @@
                             buttons: [
                                 {
                                     extend: "collection",
-                                    className: "btn btn-label-secondary dropdown-toggle me-4",
+                                    className: "btn btn-label-secondary dropdown-toggle",
                                     text: '<span class="d-flex align-items-center gap-1"><i class="icon-base ti tabler-upload icon-xs"></i> <span class="d-none d-sm-inline-block">Export</span></span>',
                                     buttons: [
                                         {
@@ -122,14 +128,7 @@
                                             className: "dropdown-item"
                                         },
                                     ],
-                                },
-                                {
-                                    text: '<i class="icon-base ti tabler-plus me-0 me-sm-1 icon-16px"></i><span class="d-none d-sm-inline-block">Add New</span>',
-                                    className: "add-new btn btn-primary",
-                                    action: function () {
-                                        window.location.href = "{{ route('deposits.create') }}";
-                                    },
-                                },
+                                }
                             ],
                         },
                     ],
@@ -188,7 +187,7 @@
 @section('content')
     <div class="card">
         <div class="card-datatable table-responsive text-nowrap">
-            <table class="datatables-deposit table">
+            <table class="datatables-deposit table table-bordered">
                 <thead class="border-top">
                 <tr>
                     <th>#</th>

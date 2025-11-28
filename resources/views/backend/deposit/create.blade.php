@@ -24,7 +24,7 @@
                 <h4 class="mb-1">Create Deposit</h4>
             </div>
             <div class="d-flex align-content-center flex-wrap gap-4">
-                <button type="reset" class="btn btn-label-secondary">Reset</button>
+                <a href="{{ route('deposits') }}" class="btn btn-label-secondary">Back</a>
                 <button type="submit" class="btn btn-primary">Save</button>
             </div>
         </div>

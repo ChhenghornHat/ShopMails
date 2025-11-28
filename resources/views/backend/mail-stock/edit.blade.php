@@ -12,8 +12,12 @@
     <script src="{{ asset('assets/vendor/libs/@form-validation/auto-focus.js') }}"></script>
 @endsection
 
+@section('page-scripts')
+    <script src="{{ asset('assets/js/pages-stock.js') }}"></script>
+@endsection
+
 @section('content')
-    <form method="post" action="{{ route('mail.stock.update', $stock->id) }}" autocomplete="off">
+    <form id="formStock" action="{{ route('mail.stock.update', $stock->id) }}" method="post" autocomplete="off">
         @csrf
         <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center mb-6 row-gap-4">
             <div class="d-flex flex-column justify-content-center">
