@@ -34,12 +34,9 @@ Route::controller(HomeController::class)->group(function () {
 });
 
 // Dashboard
-Route::middleware('user')->group(function () {
+Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 });
-/*Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-});*/
 
 /******* Backend Route *******/
 // Admin Auth
