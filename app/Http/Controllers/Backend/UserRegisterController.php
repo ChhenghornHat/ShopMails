@@ -21,7 +21,8 @@ class UserRegisterController extends Controller
      */
     public function getUserRegisters(Request $request)
     {
-        $query = User::query();
+        $query = User::query()
+            ->orderBy('users.id', 'DESC');
 
         // Built-in DataTable search
         if ($request->search['value']) {

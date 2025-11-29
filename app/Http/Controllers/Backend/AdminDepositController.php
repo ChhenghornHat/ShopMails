@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Deposit;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class AdminDepositController extends Controller
 {
@@ -22,9 +23,21 @@ class AdminDepositController extends Controller
      */
     public function getDeposits(Request $request)
     {
-        $query = Deposit::query()
-            ->join('users', 'users.id', '=', 'deposits.user_id')
-            ->select('deposits.*', 'users.name', 'users.email');
+        $query = User::query()
+            ->leftJoin('deposits as d', function ($join) {
+                $join->on('d.user_id', '=', 'users.id');
+            })
+            ->leftJoin('orders as o', 'o.user_id', '=', 'users.id')
+            ->select(
+                'users.id',
+                'users.name',
+                'users.email',
+                DB::raw('COALESCE(SUM(d.amount), 0) as total_deposit'),
+                DB::raw('COALESCE(SUM(o.amount), 0) as total_order'),
+                DB::raw('(COALESCE(SUM(d.amount), 0) - COALESCE(SUM(o.amount), 0)) as current_balance')
+            )
+            ->groupBy('users.id', 'users.name', 'users.email')
+            ->orderBy('users.id', 'DESC');
 
         // Built-in DataTable search
         if ($request->search['value']) {
@@ -51,24 +64,24 @@ class AdminDepositController extends Controller
         $perPage = $request->length;
         $page = ($request->start / $perPage) + 1;
 
-        $deposits = $query->paginate($perPage, ['*'], 'page', $page);
+        $users = $query->paginate($perPage, ['*'], 'page', $page);
 
         return response()->json([
             'draw' => intval($request->draw),
             'recordsTotal' => Deposit::count(),
-            'recordsFiltered' => $deposits->total(),
-            'data' => $deposits->items(),
+            'recordsFiltered' => $users->total(),
+            'data' => $users->items(),
         ]);
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(string $id)
     {
-        $users = User::latest()->get();
+        $user = User::find($id);
 
-        return view('backend.deposit.create', compact('users'));
+        return view('backend.deposit.create', compact('user'));
     }
 
     /**
@@ -81,6 +94,7 @@ class AdminDepositController extends Controller
         $deposit->amount = $request->amount;
         $deposit->type = 'manual';
         $deposit->method = 'ABA KHQR';
+        $deposit->notes = $request->notes;
         $deposit->save();
 
         $notification = array(

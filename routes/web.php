@@ -12,6 +12,7 @@ use App\Http\Controllers\Backend\UserRegisterController;
 use App\Http\Controllers\Frontend\DashboardController;
 use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Frontend\PricingController;
+use App\Http\Controllers\Frontend\PurchaseController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -36,6 +37,11 @@ Route::controller(HomeController::class)->group(function () {
 
 // Pricing
 Route::get('/pricing', [PricingController::class, 'index'])->name('pricing');
+
+// Purchase Email
+Route::controller(PurchaseController::class)->group(function () {
+    Route::get('/purchase', 'index')->name('purchase');
+});
 
 // Dashboard
 Route::middleware(['auth', 'verified'])->group(function () {
@@ -90,7 +96,7 @@ Route::middleware('admin')->group(function () {
     Route::controller(AdminDepositController::class)->group(function () {
         Route::get('/deposits', 'index')->name('deposits');
         Route::get('/deposits/data', 'getDeposits')->name('deposits.data');
-        Route::get('/deposits/create', 'create')->name('deposits.create');
+        Route::get('/deposits/create/{id}', 'create')->name('deposits.create');
         Route::post('/deposits/store', 'store')->name('deposits.store');
     });
 

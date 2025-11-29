@@ -38,7 +38,12 @@
             ajax: '/users/admin/data',
             searching: true,
             columns: [
-                { data: 'id', name: 'id' },
+                {
+                    data: 'id', name: 'id',
+                    render: function (data, type, row, meta) {
+                        return meta.row + meta.settings._iDisplayStart + 1;
+                    }
+                },
                 { data: 'name', name: 'name' },
                 { data: 'email', name: 'email' },
                 {

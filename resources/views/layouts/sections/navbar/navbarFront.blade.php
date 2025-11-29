@@ -42,8 +42,8 @@
                         <li class="nav-item">
                             <a class="nav-link fw-medium" href="">Deposit</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link fw-medium" href="">Purchase Email</a>
+                        <li class="nav-item {{ Str::contains($currentRouteName, 'purchase') ? 'active' : '' }}">
+                            <a class="nav-link fw-medium" href="{{ route('purchase') }}">Purchase Email</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link fw-medium" href="">API</a>

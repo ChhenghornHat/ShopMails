@@ -7,116 +7,92 @@
 @endsection
 
 @section('content')
-    <!-- Pricing plans: Start -->
-    <section id="landingPricing" class="section-py bg-body landing-pricing">
+    <!-- Pricing Plans -->
+    <section class="section-py first-section-pt">
         <div class="container">
-            <div class="text-center mb-4">
-                <span class="badge bg-label-primary">Price of Service</span>
-            </div>
-            <h4 class="text-center mb-1">
-                <span class="position-relative fw-extrabold z-1">
-                    Tailored pricing plans
-                    <img src="{{ asset('assets/img/front-pages/icons/section-title-icon.png') }}" alt="laptop charging" class="section-title-img position-absolute object-fit-contain bottom-0 z-n1" />
-                </span>
-                designed for you
-            </h4>
-            <p class="text-center pb-2 mb-7">All plans include</p>
-            <div class="row g-6 pt-lg-5">
-                <!-- Basic Plan: Start -->
-                <div class="col-xl-4 col-lg-6">
-                    <div class="card">
-                        <div class="card-header">
-                            <div class="text-center">
-                                <img src="{{ asset('assets/img/front-pages/icons/paper-airplane.png') }}" alt="paper airplane icon" class="mb-8 pb-2" />
-                                <h4 class="mb-0">Hotmail</h4>
-                                <div class="d-flex align-items-center justify-content-center">
-                                    <span class="price-monthly h2 text-primary fw-extrabold mb-0">$0.50</span>
-                                    <sub class="h6 text-body-secondary mb-n1 ms-1">/mail</sub>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <ul class="list-unstyled pricing-list">
-                                <li>
-                                    <h6 class="d-flex align-items-center mb-3">
-                                        <span class="badge badge-center rounded-pill bg-label-primary p-0 me-3">
-                                            <i class="icon-base ti tabler-check icon-12px"></i>
-                                        </span>
-                                        Basic Support
-                                    </h6>
-                                </li>
-                            </ul>
-                            <div class="d-grid mt-8">
-                                <a href="" class="btn btn-label-primary">Get Started</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Basic Plan: End -->
+            <h2 class="text-center mb-2">Pricing Plans</h2>
+            <p class="text-center pb-3">All plans include</p>
 
-                <!-- Favourite Plan: Start -->
-                <div class="col-xl-4 col-lg-6">
-                    <div class="card border border-primary shadow-xl">
-                        <div class="card-header">
-                            <div class="text-center">
-                                <img src="{{ asset('assets/img/front-pages/icons/plane.png') }}" alt="plane icon" class="mb-8 pb-2" />
-                                <h4 class="mb-0">Outlook Email</h4>
-                                <div class="d-flex align-items-center justify-content-center">
-                                    <span class="price-monthly h2 text-primary fw-extrabold mb-0">$1</span>
-                                    <sub class="h6 text-body-secondary mb-n1 ms-1">/mail</sub>
+            <div class="row g-6">
+                <!-- Custom -->
+                <div class="col-lg">
+                    <div class="card border rounded shadow-none">
+                        <div class="card-body pt-12 px-5">
+                            <div class="mt-3 mb-5 text-center">
+                                <img src="{{ asset('assets/img/illustrations/page-pricing-basic.png') }}" alt="Custom Image" height="120" />
+                            </div>
+                            <h4 class="card-title text-center text-capitalize mb-1">Custom</h4>
+                            <p class="text-center mb-5">Custom mail account for Facebook</p>
+                            <div class="text-center h-px-50">
+                                <div class="d-flex justify-content-center">
+                                    <sup class="h6 text-body pricing-currency mt-2 mb-0 me-1">$</sup>
+                                    <h1 class="mb-0 text-primary">.30</h1>
+                                    <sub class="h6 text-body pricing-duration mt-auto mb-1 ms-1">/mail</sub>
                                 </div>
                             </div>
-                        </div>
-                        <div class="card-body">
-                            <ul class="list-unstyled pricing-list">
-                                <li>
-                                    <h6 class="d-flex align-items-center mb-3">
-                                        <span class="badge badge-center rounded-pill bg-primary p-0 me-3"><i class="icon-base ti tabler-check icon-12px"></i></span>
-                                        Everything in basic
-                                    </h6>
-                                </li>
-                            </ul>
-                            <div class="d-grid mt-8">
-                                <a href="" class="btn btn-primary">Get Started</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Favourite Plan: End -->
 
-                <!-- Standard Plan: Start -->
-                <div class="col-xl-4 col-lg-6">
-                    <div class="card">
-                        <div class="card-header">
-                            <div class="text-center">
-                                <img src="{{ asset('assets/img/front-pages/icons/shuttle-rocket.png') }}" alt="shuttle rocket icon" class="mb-8 pb-2" />
-                                <h4 class="mb-0">Gmail</h4>
-                                <div class="d-flex align-items-center justify-content-center">
-                                    <span class="price-monthly h2 text-primary fw-extrabold mb-0">$1.50</span>
-                                    <sub class="h6 text-body-secondary mb-n1 ms-1">/mail</sub>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <ul class="list-unstyled pricing-list">
-                                <li>
-                                    <h6 class="d-flex align-items-center mb-3">
-                                        <span class="badge badge-center rounded-pill bg-label-primary p-0 me-3">
-                                            <i class="icon-base ti tabler-check icon-12px"></i>
-                                        </span>
-                                        Everything in premium
-                                    </h6>
-                                </li>
+                            <ul class="list-group ps-6 my-5 pt-9">
+                                <li class="mb-4">Unlimited responses</li>
                             </ul>
-                            <div class="d-grid mt-8">
-                                <a href="" class="btn btn-label-primary">Get Started</a>
-                            </div>
+                            <a href="" class="btn btn-label-success d-grid w-100">Get Started</a>
                         </div>
                     </div>
                 </div>
-                <!-- Standard Plan: End -->
+
+                <!-- Gmail -->
+                <div class="col-lg">
+                    <div class="card border-primary border shadow-none">
+                        <div class="card-body position-relative pt-4 px-5">
+                            <div class="position-absolute end-0 me-5 top-0 mt-4">
+                                <span class="badge bg-label-primary rounded-1">Gmail</span>
+                            </div>
+                            <div class="my-5 pt-6 text-center">
+                                <img src="{{ asset('assets/img/illustrations/page-pricing-standard.png') }}" alt="Standard Image" height="120" />
+                            </div>
+                            <h4 class="card-title text-center text-capitalize mb-1">Gmail</h4>
+                            <p class="text-center mb-5">Gmail account for Facebook</p>
+                            <div class="text-center h-px-50">
+                                <div class="d-flex justify-content-center">
+                                    <sup class="h6 text-body pricing-currency mt-2 mb-0 me-1">$</sup>
+                                    <h1 class="price-toggle price-yearly text-primary mb-0">.50</h1>
+                                    <sub class="h6 text-body pricing-duration mt-auto mb-1 ms-1">/mail</sub>
+                                </div>
+                            </div>
+
+                            <ul class="list-group ps-6 my-5 pt-9">
+                                <li class="mb-4">Unlimited responses</li>
+                            </ul>
+                            <a href="" class="btn btn-primary d-grid w-100">Get Started</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Outlook -->
+                <div class="col-lg">
+                    <div class="card border rounded shadow-none">
+                        <div class="card-body pt-12 px-5">
+                            <div class="mt-3 mb-5 text-center">
+                                <img src="{{ asset('assets/img/illustrations/page-pricing-enterprise.png') }}" alt="Outlook Image" height="120" />
+                            </div>
+                            <h4 class="card-title text-center text-capitalize mb-1">Outlook</h4>
+                            <p class="text-center mb-5">Outlook account for Facebook</p>
+
+                            <div class="text-center h-px-50">
+                                <div class="d-flex justify-content-center">
+                                    <sup class="h6 text-body pricing-currency mt-2 mb-0 me-1">$</sup>
+                                    <h1 class="price-toggle price-yearly text-primary mb-0">.40</h1>
+                                    <sub class="h6 text-body pricing-duration mt-auto mb-1 ms-1">/mail</sub>
+                                </div>
+                            </div>
+                            <ul class="list-group ps-6 my-5 pt-9">
+                                <li class="mb-4">Unlimited responses</li>
+                            </ul>
+                            <a href="" class="btn btn-label-primary d-grid w-100">Get Started</a>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
-    <!-- Pricing plans: End -->
+    <!--/ Pricing Plans -->
 @endsection

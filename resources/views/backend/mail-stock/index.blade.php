@@ -38,7 +38,12 @@
             ajax: '/mail/stock/data',
             searching: true,
             columns: [
-                { data: 'id', name: 'id' },
+                {
+                    data: 'id', name: 'id',
+                    render: function (data, type, row, meta) {
+                        return meta.row + meta.settings._iDisplayStart + 1;
+                    }
+                },
                 { data: 'mail', name: 'mail' },
                 { data: 'password', name: 'password' },
                 {
@@ -187,7 +192,7 @@
 @section('content')
     <div class="card">
         <div class="card-datatable table-responsive text-nowrap">
-            <table class="datatables-mail-stock table">
+            <table class="datatables-mail-stock table table-bordered">
                 <thead class="border-top">
                 <tr>
                     <th>#</th>

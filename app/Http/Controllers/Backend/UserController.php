@@ -21,7 +21,8 @@ class UserController extends Controller
      */
     public function getUsers(Request $request)
     {
-        $query = Admin::query();
+        $query = Admin::query()
+            ->orderBy('admins.id', 'DESC');
 
         // Built-in DataTable search
         if ($request->search['value']) {

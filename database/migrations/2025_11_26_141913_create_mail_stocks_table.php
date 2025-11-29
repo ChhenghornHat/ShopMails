@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('mail_stocks', function (Blueprint $table) {
             $table->id();
-            $table->string('mail');
+            $table->string('mail')->unique();
             $table->string('password');
             $table->string('used')->default('No');
             $table->string('flatform');

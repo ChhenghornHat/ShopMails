@@ -34,18 +34,20 @@
                 <div class="row mb-6">
                     <label class="col-sm-2 col-form-label" for="user_id">User <span class="text-danger">*</span></label>
                     <div class="col-sm-10">
-                        <select class="form-select" id="user_id" name="user_id">
-                            <option value="" disabled>Select User</option>
-                            @foreach($users as $user)
-                                <option value="{{ $user->id }}">{{ $user->name }}</option>
-                            @endforeach
-                        </select>
+                        <input type="hidden" name="user_id" value="{{ $user->id }}">
+                        <input type="text" class="form-control" value="{{ $user->name }}" disabled/>
                     </div>
                 </div>
-                <div class="row">
+                <div class="row mb-6">
                     <label class="col-sm-2 col-form-label" for="amount">Amount <span class="text-danger">*</span></label>
                     <div class="col-sm-10">
                         <input type="text" class="form-control" id="amount" name="amount" placeholder="Enter Amount" />
+                    </div>
+                </div>
+                <div class="row">
+                    <label class="col-sm-2 col-form-label" for="notes">Notes</label>
+                    <div class="col-sm-10">
+                        <textarea class="form-control" id="notes" name="notes" cols="3" placeholder="Enter Notes"></textarea>
                     </div>
                 </div>
             </div>

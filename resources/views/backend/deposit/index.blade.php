@@ -38,37 +38,27 @@
             ajax: '/deposits/data',
             searching: true,
             columns: [
-                { data: 'id', name: 'id' },
-                {
-                    data: 'name', name: 'name',
-                    render: function (data, type, row) {
-                        return `
-                            <div class="d-flex flex-column">
-                                <h6 class="text-nowrap mb-0">${data}</h6>
-                                <small class="text-truncate d-none d-sm-block">${row.email}</small>
-                            </div>
-                        `;
-                    }
-                },
-                { data: 'amount', name: 'amount' },
-                { data: 'type', name: 'type' },
-                { data: 'method', name: 'method' },
-                {
-                    data: 'created_at',
-                    name: 'created_at',
-                    render: function(data) {
-                        return formatDateTime(data);
-                    }
-                },
                 {
                     data: 'id', name: 'id',
+                    render: function (data, type, row, meta) {
+                        return meta.row + meta.settings._iDisplayStart + 1;
+                    }
+                },
+                { data: 'name', name: 'name' },
+                { data: 'email', name: 'email' },
+                { data: 'total_deposit', name: 'total_deposit' },
+                { data: 'total_order', name: 'total_order' },
+                { data: 'current_balance', name: 'current_balance' },
+                {
+                    data: 'id', name: 'id',
+                    className: 'text-center',
                     render: function (data) {
                         return `
                             <div class="d-inline-block text-nowrap">
-                                <a href="{{ route('deposits.create') }}" class="btn btn-primary waves-effect btn-icon me-1" data-bs-toggle="tooltip" data-bs-placement="top" title="Deposit">
+                                <a href="/deposits/create/${data}" class="btn btn-primary waves-effect btn-icon me-1" data-bs-toggle="tooltip" data-bs-placement="top" title="Deposit">
                                     <i class="icon-base ti tabler-currency-dollar icon-22px"></i>
                                 </a>
-                                <a href="{{ route('deposits.create') }}" class="btn btn-info waves-effect btn-icon" data-bs-toggle="tooltip" data-bs-placement="top" title="Transaction History">
+                                <a href="" class="btn btn-info waves-effect btn-icon" data-bs-toggle="tooltip" data-bs-placement="top" title="Transaction History">
                                     <i class="icon-base ti tabler-history icon-22px"></i>
                                 </a>
                             </div>
@@ -192,10 +182,10 @@
                 <tr>
                     <th>#</th>
                     <th>Name</th>
-                    <th>Amount (USD)</th>
-                    <th>Type</th>
-                    <th>Method</th>
-                    <th>Deposit Date</th>
+                    <th>Email</th>
+                    <th>Total Deposit</th>
+                    <th>Total Order</th>
+                    <th>Current Balance</th>
                     <th>Action</th>
                 </tr>
                 </thead>
