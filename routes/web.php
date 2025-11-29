@@ -9,6 +9,7 @@ use App\Http\Controllers\Backend\MailStockController;
 use App\Http\Controllers\Backend\OutlookSmtpController;
 use App\Http\Controllers\Backend\UserController;
 use App\Http\Controllers\Backend\UserRegisterController;
+use App\Http\Controllers\Frontend\ApiController;
 use App\Http\Controllers\Frontend\DashboardController;
 use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Frontend\PricingController;
@@ -42,6 +43,9 @@ Route::get('/pricing', [PricingController::class, 'index'])->name('pricing');
 Route::controller(PurchaseController::class)->group(function () {
     Route::get('/purchase', 'index')->name('purchase');
 });
+
+// Api
+Route::get('/api', [ApiController::class, 'index'])->name('api');
 
 // Dashboard
 Route::middleware(['auth', 'verified'])->group(function () {

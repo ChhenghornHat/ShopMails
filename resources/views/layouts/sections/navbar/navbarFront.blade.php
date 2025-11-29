@@ -45,8 +45,8 @@
                         <li class="nav-item {{ Str::contains($currentRouteName, 'purchase') ? 'active' : '' }}">
                             <a class="nav-link fw-medium" href="{{ route('purchase') }}">Purchase Email</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link fw-medium" href="">API</a>
+                        <li class="nav-item {{ Str::contains($currentRouteName, 'api') ? 'active' : '' }}">
+                            <a class="nav-link fw-medium" href="{{ route('api') }}">API</a>
                         </li>
                     @endauth
                 </ul>

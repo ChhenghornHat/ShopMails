@@ -26,6 +26,17 @@ class AuthenticatedSessionController extends Controller
     {
         $request->authenticate();
 
+        $user = $request->user(); // authenticated user
+
+        // Optional: delete old tokens
+        $user->tokens()->delete();
+
+        // Generate new Sanctum token
+        $token = $user->createToken('web_token')->plainTextToken;
+
+        // Store token in session
+        session(['api_token' => $token]);
+
         $request->session()->regenerate();
 
         return redirect()->intended(route('dashboard', absolute: false));
@@ -36,6 +47,13 @@ class AuthenticatedSessionController extends Controller
      */
     public function destroy(Request $request): RedirectResponse
     {
+        $user = $request->user(); // Get currently authenticated user
+
+        if ($user) {
+            // Delete all API tokens for this user
+            $user->tokens()->delete();
+        }
+
         Auth::guard('web')->logout();
 
         $request->session()->invalidate();
