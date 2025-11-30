@@ -12,7 +12,7 @@
                     <i class="icon-base ti tabler-menu-2 icon-lg align-middle text-heading fw-medium"></i>
                 </button>
                 <!-- Mobile menu toggle: End-->
-                <a href="" class="app-brand-link">
+                <a href="{{ route('home') }}" class="app-brand-link">
                     <span class="app-brand-logo demo">
                         <span class="text-primary">
 
@@ -32,8 +32,8 @@
                     <li class="nav-item {{ Str::contains($currentRouteName, 'home') ? 'active' : '' }}">
                         <a class="nav-link fw-medium" aria-current="page" href="{{ route('home') }}">Home</a>
                     </li>
-                    <li class="nav-item {{ Str::contains($currentRouteName, 'pricing') ? 'active' : '' }}">
-                        <a class="nav-link fw-medium" href="{{ route('pricing') }}">Price of Service</a>
+                    <li class="nav-item {{ Str::contains($currentRouteName, 'price-of-service') ? 'active' : '' }}">
+                        <a class="nav-link fw-medium" href="{{ route('price-of-service') }}">Price of Service</a>
                     </li>
                     @auth
                         <li class="nav-item {{ Str::contains($currentRouteName, 'dashboard') ? 'active' : '' }}">

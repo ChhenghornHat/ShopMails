@@ -11,5 +11,6 @@
 <link rel="stylesheet" href="{{ asset('assets/css/demo.css') }}"/>
 <link rel="stylesheet" href="{{ asset('assets/vendor/css/pages/front-page.css') }}"/>
 <!-- Vendors CSS -->
+<link rel="stylesheet" href="{{ asset('assets/vendor/libs/notyf/notyf.css') }}"/>
 <link rel="stylesheet" href="{{ asset('assets/vendor/libs/nouislider/nouislider.css') }}"/>
 <link rel="stylesheet" href="{{ asset('assets/vendor/libs/swiper/swiper.css') }}"/>

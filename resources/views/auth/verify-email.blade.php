@@ -28,9 +28,9 @@
                     <p class="text-center my-6">
                         Didn't get the mail?
                     </p>
-                    @if(session('status'))
+                    @if($errors->any())
                         <div class="alert alert-info">
-                            {{ session('status') }}
+                            {{ $errors->first() }}
                         </div>
                     @endif
                     <button type="submit" class="btn btn-primary w-100 mb-0"> Resend Verification Email </button>

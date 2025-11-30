@@ -41,9 +41,9 @@
                         <p class="mb-6">Enter your email and we'll send you instructions to reset your password</p>
                         <form id="formAuthentication" class="mb-6" action="{{ route('password.email') }}" method="post">
                             @csrf
-                            @if(session('status'))
-                                <div class="alert alert-info">
-                                    {{ session('status') }}
+                            @if($errors->any())
+                                <div class="alert alert-danger">
+                                    {{ $errors->first() }}
                                 </div>
                             @endif
                             <div class="mb-6 form-control-validation">

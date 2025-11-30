@@ -8,74 +8,90 @@ use App\Models\Order;
 use App\Models\Deposit;
 use App\Jobs\FetchOtpJob;
 use Exception;
+use Webklex\PHPIMAP\ClientManager;
 
 class GmailOrderService
 {
-    /**
-     * Purchase a single mail from stock for $userId
-     * returns array: ['order'=>Order, 'stock'=>MailStock, 'smtp'=>GmailSmtp]
-     */
-    public function purchase(int $userId)
+    public function purchase(int $userId, string $smtpType)
     {
-        return DB::transaction(function () use ($userId) {
+        return DB::transaction(function () use ($userId, $smtpType) {
 
+            // 1) Get SMTP config
             $smtp = GmailSmtp::first();
             if (!$smtp) {
-                throw new Exception("SMTP provider not configured.");
+                throw new Exception("Gmail SMTP not configured.");
             }
+
             $price = (float)$smtp->price;
 
-            // select one available mail and lock it
-            $stock = MailStock::where('used','No')->lockForUpdate()->first();
+            // 2) Get available stock
+            $stock = MailStock::where('used', 'No')
+                ->where('smtp', 'Gmail')
+                ->lockForUpdate()
+                ->first();
+
             if (!$stock) {
-                throw new Exception("No email stock available.");
+                throw new Exception("No Gmail email available.");
             }
 
-            // lock and check deposit
+            // 3) Lock user deposit
             $deposit = Deposit::where('user_id', $userId)->lockForUpdate()->first();
             if (!$deposit || $deposit->amount < $price) {
                 throw new Exception("Insufficient balance.");
             }
 
-            // deduct deposit
+            // Deduct deposit
             $deposit->decrement('amount', $price);
 
-            // mark stock used
+            // Mark stock used
             $stock->used = 'Yes';
             $stock->save();
 
-            // create order
+            // Create order
             $order = Order::create([
-                'user_id' => $userId,
-                'stock_id' => $stock->id,
-                'amount' => $price,
-                'status' => 'pending'
+                'user_id'   => $userId,
+                'stock_id'  => $stock->id,
+                'amount'    => $price,
+                'status'    => 'pending'
             ]);
 
-            // dispatch OTP fetch job (async)
-            FetchOtpJob::dispatch($order->id);
+            FetchOtpJob::dispatch($order->id, 'gmail');
 
-            // return data
-            return [
-                'order' => $order,
-                'stock' => $stock,
-                'smtp'  => $smtp
-            ];
-        }, 5); // 5 retries on deadlock
+            return compact('order', 'stock', 'smtp');
+        });
     }
 
-    public function saveOtp(int $orderId, string $otp)
-    {
-        $order = Order::find($orderId);
-        if (!$order) return null;
-        $order->otp = $otp;
-        $order->status = 'delivered';
-        $order->save();
-        return $order;
-    }
 
-    public function latestForUser(int $userId)
+    /**
+     * Fetch OTP using dynamic IMAP
+     */
+    public function fetchOtpForOrder(Order $order)
     {
-        return Order::with('stock')->where('user_id',$userId)->latest()->first();
+        $stock = $order->stock;
+        $smtp  = GmailSmtp::first();
+
+        $client = (new ClientManager())->make([
+            'host' => $smtp->host,
+            'port' => $smtp->port,
+            'encryption' => $smtp->encryption,
+            'validate_cert' => true,
+            'username' => $stock->email,
+            'password' => $stock->password,
+            'protocol' => 'imap'
+        ]);
+
+        $client->connect();
+
+        $folder = $client->getFolder('INBOX');
+        $messages = $folder->messages()->since(now()->subMinutes(10))->get();
+
+        foreach ($messages as $message) {
+            $body = $message->getHTMLBody() ?: $message->getTextBody();
+            if (preg_match('/(\d{6})/', $body, $m)) {
+                return $m[1];
+            }
+        }
+
+        return null;
     }
 }

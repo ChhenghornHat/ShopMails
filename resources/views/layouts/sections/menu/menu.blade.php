@@ -29,7 +29,7 @@
         </li>
 
         <!-- Manage Public Page -->
-        <li class="menu-item">
+        <li class="menu-item {{ Str::startsWith($currentRouteName, 'page') ? 'active open' : '' }}">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon icon-base ti tabler-browser-check"></i>
                 <div data-i18n="Manage Public Page">Manage Public Page</div>
@@ -40,8 +40,8 @@
                         <div data-i18n="Home Page">Home Page</div>
                     </a>
                 </li>
-                <li class="menu-item">
-                    <a href="" class="menu-link">
+                <li class="menu-item {{ Str::contains($currentRouteName, 'pricing') ? 'active' : '' }}">
+                    <a href="{{ route('page.pricing') }}" class="menu-link">
                         <div data-i18n="Pricing">Pricing</div>
                     </a>
                 </li>

@@ -50,6 +50,36 @@
 @yield('vendor-scripts')
 
 <!-- Page Scripts -->
+<script type="text/javascript">
+    // Token
+    // $.ajaxSetup({
+    //     headers: {
+    //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    //     }
+    // });
+
+    // Notifications
+    @if(Session::has('message'))
+    const notyf = new Notyf();
+    const status = "{{ Session::get('status', 'info') }}";
+    const message = "{{ Session::get('message') }}";
+
+    switch (status) {
+        case 'info':
+            notyf.info(message);
+            break;
+        case 'success':
+            notyf.success(message);
+            break;
+        case 'warning':
+            notyf.warning(message);
+            break;
+        case 'error':
+            notyf.error(message);
+            break;
+    }
+    @endif
+</script>
 @yield('page-scripts')
 </body>
 </html>

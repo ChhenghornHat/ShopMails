@@ -6,5 +6,6 @@
 <script src="{{ asset('assets/vendor/js/dropdown-hover.js') }}"></script>
 <script src="{{ asset('assets/vendor/js/mega-dropdown.js') }}"></script>
 <!-- Vendors JS -->
+<script src="{{ asset('assets/vendor/libs/notyf/notyf.js') }}"></script>
 <script src="{{ asset('assets/vendor/libs/nouislider/nouislider.js') }}"></script>
 <script src="{{ asset('assets/vendor/libs/swiper/swiper.js') }}"></script>

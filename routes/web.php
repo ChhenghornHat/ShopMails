@@ -3,6 +3,7 @@
 use App\Http\Controllers\Backend\AdminAuthenticatedController;
 use App\Http\Controllers\Backend\AdminDashboardController;
 use App\Http\Controllers\Backend\AdminDepositController;
+use App\Http\Controllers\Backend\AdminPricingController;
 use App\Http\Controllers\Backend\CustomSmtpController;
 use App\Http\Controllers\Backend\GmailSmtpController;
 use App\Http\Controllers\Backend\MailStockController;
@@ -36,20 +37,23 @@ Route::controller(HomeController::class)->group(function () {
     Route::get('/home', 'index')->name('home');
 });
 
-// Pricing
-Route::get('/pricing', [PricingController::class, 'index'])->name('pricing');
-
-// Purchase Email
-Route::controller(PurchaseController::class)->group(function () {
-    Route::get('/purchase', 'index')->name('purchase');
-});
-
-// Api
-Route::get('/api', [ApiController::class, 'index'])->name('api');
-
-// Dashboard
+// User Middleware
 Route::middleware(['auth', 'verified'])->group(function () {
+    // Pricing
+    Route::get('/price-of-service', [PricingController::class, 'index'])->name('price-of-service');
+
+    // Dashboard
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+    // Purchase Email
+    Route::controller(PurchaseController::class)->group(function () {
+        Route::get('/purchase', 'index')->name('purchase');
+        Route::post('/purchase/store', 'store')->name('purchase.store');
+        Route::get('/purchase/otp/{id}', 'getOtp')->name('purchase.otp');
+    });
+
+    // Api
+    Route::get('/api', [ApiController::class, 'index'])->name('api');
 });
 
 /******* Backend Route *******/
@@ -64,6 +68,13 @@ Route::controller(AdminAuthenticatedController::class)->group(function () {
 Route::middleware('admin')->group(function () {
     // Admin Dashboard
     Route::get('/admin/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
+
+    // Pricing
+    Route::controller(AdminPricingController::class)->group(function () {
+        Route::get('/page/pricing', 'index')->name('page.pricing');
+        Route::post('/pricing/store', 'store')->name('pricing.store');
+        ROute::post('/pricing/update/{id}', 'update')->name('pricing.update');
+    });
 
     // Mail Stock
     Route::controller(MailStockController::class)->group(function () {

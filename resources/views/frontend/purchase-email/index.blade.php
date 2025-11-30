@@ -12,25 +12,27 @@
             <h5 class="pb-1 mb-6">Purchase Email</h5>
             <div class="row g-6 mb-6">
                 <div class="col-lg-4 col-sm-6">
-                    <div class="card h-100">
+                    <form action="{{ route('purchase.store') }}" class="card h-100" method="post">
+                        @csrf
+                        <input type="hidden" name="smtp_type" value="gmail">
                         <div class="card-body d-flex justify-content-between align-items-center">
                             <div class="card-title mb-0">
-                                <h5 class="mb-1 me-2">100</h5>
+                                <h5 class="mb-1 me-2">{{ $gmailCount }}</h5>
                                 <p class="mb-0">FB Gmail OTP</p>
                             </div>
                             <div class="card-icon">
-                            <button type="button" class="badge bg-label-primary rounded p-2">
+                            <button type="submit" class="badge bg-label-primary rounded p-2">
                                 <i class="icon-base ti tabler-plus icon-26px"></i>
                             </button>
                             </div>
                         </div>
-                    </div>
+                    </form>
                 </div>
                 <div class="col-lg-4 col-sm-6">
                     <div class="card h-100">
                         <div class="card-body d-flex justify-content-between align-items-center">
                             <div class="card-title mb-0">
-                                <h5 class="mb-1 me-2">300</h5>
+                                <h5 class="mb-1 me-2">{{ $outlookCount }}</h5>
                                 <p class="mb-0">FB Outlook OTP</p>
                             </div>
                             <div class="card-icon">
@@ -45,7 +47,7 @@
                     <div class="card h-100">
                         <div class="card-body d-flex justify-content-between align-items-center">
                             <div class="card-title mb-0">
-                                <h5 class="mb-1 me-2">400</h5>
+                                <h5 class="mb-1 me-2">{{ $customCount }}</h5>
                                 <p class="mb-0">FB Custom OTP</p>
                             </div>
                             <div class="card-icon">
