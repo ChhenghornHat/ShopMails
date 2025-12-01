@@ -32,11 +32,16 @@ class AdminDepositController extends Controller
                 'users.id',
                 'users.name',
                 'users.email',
-                DB::raw('COALESCE(SUM(d.amount), 0) as total_deposit'),
-                DB::raw('COALESCE(SUM(o.amount), 0) as total_order'),
-                DB::raw('(COALESCE(SUM(d.amount), 0) - COALESCE(SUM(o.amount), 0)) as current_balance')
+                DB::raw('COALESCE(SUM(o.amount) + d.amount, d.amount) AS total_deposit'),
+                DB::raw('COALESCE(SUM(o.amount), 0) AS total_order'),
+                DB::raw('COALESCE(d.amount, 0) AS current_balance')
             )
-            ->groupBy('users.id', 'users.name', 'users.email')
+            ->groupBy(
+                'users.id',
+                'users.name',
+                'users.email',
+                'd.amount'
+            )
             ->orderBy('users.id', 'DESC');
 
         // Built-in DataTable search
