@@ -75,7 +75,7 @@ class GmailOrderService
             'port' => $smtp->port,
             'encryption' => $smtp->encryption,
             'validate_cert' => true,
-            'username' => $stock->email,
+            'username' => $stock->mail,
             'password' => $stock->password,
             'protocol' => 'imap'
         ]);

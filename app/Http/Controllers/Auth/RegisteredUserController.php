@@ -41,6 +41,15 @@ class RegisteredUserController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
+        // Optional: delete old tokens
+        $user->tokens()->delete();
+
+        // Generate new Sanctum token
+        $token = $user->createToken('web_token')->plainTextToken;
+
+        // Store token in session
+        session(['api_token' => $token]);
+
         event(new Registered($user));
 
         Auth::login($user);

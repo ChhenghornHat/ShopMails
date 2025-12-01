@@ -9,6 +9,7 @@ use App\Services\GmailOrderService;
 use App\Services\OrderService;
 use App\Services\OutlookOrderService;
 use Illuminate\Http\Request;
+use SebastianBergmann\Timer\Exception;
 
 class PurchaseController extends Controller
 {
@@ -39,28 +40,36 @@ class PurchaseController extends Controller
 
     public function fetchOtp(Request $request)
     {
-        $order = Order::where('id', $request->order_id)
-            ->where('user_id', $request->user()->id)
-            ->firstOrFail();
+        try {
+            $order = Order::where('id', $request->order_id)
+                ->where('user_id', $request->user()->id)
+                ->firstOrFail();
 
-        $service = match ($order->stock->smtp) {
-            'Gmail'   => app(GmailOrderService::class),
-            'Outlook' => app(OutlookOrderService::class),
-            'Custom'  => app(CustomOrderService::class),
-        };
+            $service = match ($order->stock->smtp) {
+                'Gmail'   => app(GmailOrderService::class),
+                'Outlook' => app(OutlookOrderService::class),
+                'Custom'  => app(CustomOrderService::class),
+            };
 
-        $otp = $service->fetchOtpForOrder($order);
+            $otp = $service->fetchOtpForOrder($order);
 
-        if ($otp) {
-            $order->otp = $otp;
-            $order->status = 'delivered';
-            $order->save();
+            if ($otp) {
+                $order->otp = $otp;
+                $order->status = 'delivered';
+                $order->save();
+            }
+
+            return response()->json([
+                'success' => true,
+                'otp' => $order->otp,
+            ]);
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'error' => $e->getMessage(),
+            ]);
         }
-
-        return response()->json([
-            'success' => true,
-            'otp' => $order->otp,
-        ]);
     }
 
     /**

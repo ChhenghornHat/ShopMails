@@ -11,4 +11,5 @@ Route::middleware('auth:sanctum')->group(function () {
     });
 
     Route::get('/send-test-otp', [OtpController::class, 'sendOtpTest']);
+    Route::get('/test-data', [OtpController::class, 'store']);
 });
